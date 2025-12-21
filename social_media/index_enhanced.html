@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SocialConnect - Connect, share, and engage with your community">
+    <title>SocialConnect - Your Social Network</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Header -->
+    <header class="header hidden" id="header">
+        <div class="header-content">
+            <a href="#" class="logo" onclick="showFeed(); return false;">SocialConnect</a>
+
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" id="searchInput"
+                    placeholder="Search posts, people, hashtags...">
+            </div>
+
+            <nav class="nav-links">
+                <a class="nav-link active" id="navHome" onclick="showFeed()">🏠 Home</a>
+                <a class="nav-link" id="navMessages" onclick="showMessages()">
+                    ✉️ Messages
+                    <span class="badge hidden" id="messagesBadge">0</span>
+                </a>
+                <div class="user-menu">
+                    <img class="avatar" id="navAvatar" src="" alt="User" onclick="showProfile()">
+                    <span class="nav-link" id="navUsername" onclick="showProfile()"></span>
+                    <button class="btn btn-small btn-secondary" onclick="logout()">Logout</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Login Page -->
+    <div id="loginPage">
+        <div class="auth-container">
+            <div class="auth-box">
+                <div class="auth-header">
+                    <h1>⚡ Welcome Back!</h1>
+                    <p>Sign in to continue to SocialConnect</p>
+                </div>
+
+                <div id="loginError"></div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="loginEmail" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password"
+                            required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </form>
+
+                <div class="divider">or</div>
+
+                <p class="text-center">
+                    Don't have an account?
+                    <a href="#" class="link" onclick="showRegister(); return false;">Create Account</a>
+                </p>
+
+                <div
+                    style="margin-top: 24px; padding: 16px; background: var(--surface-light); border-radius: 12px; border-left: 4px solid var(--primary);">
+                    <p style="font-size: 13px; color: var(--text-light); margin-bottom: 8px;"><strong>Demo
+                            Credentials:</strong></p>
+                    <p style="font-size: 13px; color: var(--text);">📧 demo@socialconnect.com</p>
+                    <p style="font-size: 13px; color: var(--text);">🔑 demo123456</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="registerPage" class="hidden">
+        <div class="auth-container">
+            <div class="auth-box">
+                <div class="auth-header">
+                    <h1>⚡ Join SocialConnect</h1>
+                    <p>Create your account and start connecting</p>
+                </div>
+
+                <div id="registerError"></div>
+
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="regFullName" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-input" id="regUsername" placeholder="johndoe" required
+                            minlength="3">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="regEmail" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="regPassword" placeholder="Minimum 8 characters"
+                            required minlength="8">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </form>
+
+                <div class="divider">or</div>
+
+                <p class="text-center">
+                    Already have an account?
+                    <a href="#" class="link" onclick="showLogin(); return false;">Sign In</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feed Page -->
+    <div id="feedPage" class="hidden">
+        <div class="container">
+            <div class="main-layout">
+                <!-- Left Sidebar -->
+                <div class="sidebar">
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">🔥 Trending</h3>
+                        <div id="trendingContainer"></div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div>
+                    <!-- Create Post -->
+                    <div class="create-post">
+                        <div class="create-post-header">
+                            <img class="avatar" id="createPostAvatar" src="" alt="User">
+                            <h3>Create a post</h3>
+                        </div>
+                        <form id="createPostForm">
+                            <div class="form-group">
+                                <textarea class="form-input" id="postContent"
+                                    placeholder="What's on your mind? Use #hashtags to categorize your posts!"
+                                    required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="url" class="form-input" id="postImage"
+                                    placeholder="🖼️ Add image URL (optional)">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Post</button>
+                        </form>
+                    </div>
+
+                    <!-- Posts Feed -->
+                    <div id="postsContainer">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Loading posts...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar -->
+                <div class="sidebar">
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">💡 Tips</h3>
+                        <p style="font-size: 14px; color: var(--text-light); line-height: 1.6;">
+                            • Use <span style="color: var(--primary-light);">#hashtags</span> to categorize posts<br>
+                            • Click trending tags to explore<br>
+                            • Message users directly<br>
+                            • All data is saved locally
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profilePage" class="hidden">
+        <div class="container">
+            <div id="profileContent"></div>
+        </div>
+    </div>
+
+    <!-- Messages Page -->
+    <div id="messagesPage" class="hidden">
+        <div class="container">
+            <div class="messages-container">
+                <!-- Conversations List -->
+                <div class="conversations-list" id="conversationsList">
+                    <h3 style="margin-bottom: 16px; color: var(--text);">Messages</h3>
+                </div>
+
+                <!-- Chat Window -->
+                <div class="chat-window">
+                    <div class="chat-header" id="chatHeader">
+                        <p style="color: var(--text-light);">Select a conversation</p>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">💬</div>
+                            <p>Select a conversation to start messaging</p>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-container">
+                        <input type="text" class="chat-input" id="chatInput" placeholder="Type a message...">
+                        <button class="btn btn-primary btn-small" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

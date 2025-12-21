@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Logs
+*.log
+logs/
+backend/backend.log
+frontend.log
+
+# Database
+.mongodb/
+*.db
+
+# Build
+dist/
+build/
+.next/
+
+# Cache
+.cache/
+__pycache__/
+*.pyc
